@@ -5,7 +5,7 @@ pipeline {
         AWS_DEFAULT_REGION="us-east-1" 
 	CLUSTER_NAME="Nodejs"
 	SERVICE_NAME="nodejsapp-service"
-	TASK_DEFINITION_NAME="nodejs-app"
+	TASK_DEFINITION_NAME="sampleapp"
 	DESIRED_COUNT="1"
         IMAGE_REPO_NAME="nodejs"
         IMAGE_TAG="${env.BUILD_ID}"
