@@ -71,7 +71,7 @@ pipeline {
             withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
                 script {
 // 		  sh "chmod +x -R ${env.WORKSPACE}"
-		  sh 'sudo /root/script.sh'
+		  sh '/root/script.sh'
                 }
             } 
         }
