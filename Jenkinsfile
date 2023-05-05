@@ -49,33 +49,33 @@ pipeline {
         }
     }
 	    
-//     stage("Update ECS service") {
-//         steps {
-//             withCredentials([
-//                 [
-//                     $class: 'AmazonWebServicesCredentialsBinding',
-//                     accessKeyVariable: 'AWS_ACCESS_KEY_ID',
-//                     secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
-//                     credentialsId: '176295807911'
-//                 ]
-//             ]) {
-//                 sh "aws ecs update-service --cluster ${env.CLUSTER_NAME} --service ${env.SERVICE_NAME} --force-new-deployment --image ${env.IMAGE_REPO_NAME}:${env.IMAGE_TAG}"
-//             }
-//         }
-//     }
-// }
-// }
-
-    stage('Deploy') {
-     steps{
-            withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
-                script {
-		  sh "chmod +x -R ./script.sh"
-		  sh './script.sh'
-                }
-            } 
+    stage("Update ECS service") {
+        steps {
+            withCredentials([
+                [
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY',
+                    credentialsId: '176295807911'
+                ]
+            ]) {
+                sh "aws ecs update-service --cluster ${env.CLUSTER_NAME} --service ${env.SERVICE_NAME} --force-new-deployment --image ${env.AWS_ACCOUNT_ID}.dkr.ecr.${env.AWS_DEFAULT_REGION}.amazonaws.com/${env.IMAGE_REPO_NAME}:${env.IMAGE_TAG}"
+            }
         }
-      }      
-      
     }
 }
+}
+
+//     stage('Deploy') {
+//      steps{
+//             withAWS(credentials: registryCredential, region: "${AWS_DEFAULT_REGION}") {
+//                 script {
+// 		  sh "chmod +x -R ./script.sh"
+// 		  sh './script.sh'
+//                 }
+//             } 
+//         }
+//       }      
+      
+//     }
+// }
